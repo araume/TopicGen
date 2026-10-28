@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Solomon's Glasses
 
-## Getting Started
+One topic. Two hours of research. Three minutes to present.
 
-First, run the development server:
+## Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Topics
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Topics live in [`data/topics.json`](data/topics.json). The entries there now are placeholders.
 
-## Learn More
+```json
+{
+  "topics": [
+    { "text": "The Great Emu War of 1932", "category": "History" }
+  ]
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+- `text`: the topic shown on reveal. It should be specific enough to research in two hours.
+- `category`: a short label shown above the topic.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Topics don't repeat until every one has been shown. The history is kept in the browser's `localStorage`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Flow
 
-## Deploy on Vercel
+1. **Reveal:** click the button (or press Space/Enter) to get a random topic.
+2. **Research:** a 2-hour countdown.
+3. **Present (optional):** a 3-minute countdown. Turn it on or off with the "Presentation timer" switch.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Timers store their end time, so they stay accurate if you refresh the page or the tab is in the background.
