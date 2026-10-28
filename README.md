@@ -13,7 +13,7 @@ Open http://localhost:3000.
 
 ## Topics
 
-Topics live in [`data/topics.json`](data/topics.json). The entries there now are placeholders.
+Topics live in [`data/topics.json`](data/topics.json): about 640 topics across 20 categories. Add or remove entries freely.
 
 ```json
 {
