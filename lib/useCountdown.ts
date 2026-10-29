@@ -23,7 +23,6 @@ export function useCountdown(duration: number, storageKey: string) {
 
   useEffect(() => {
     if (state.status !== "running") return;
-    setNow(Date.now());
     const id = setInterval(() => setNow(Date.now()), 250);
     return () => clearInterval(id);
   }, [state.status]);
@@ -39,8 +38,11 @@ export function useCountdown(duration: number, storageKey: string) {
     }
   }, [state.status, remaining, setState]);
 
+  // Refresh `now` alongside every start/resume so the first frame isn't computed from a stale clock.
   const start = useCallback(() => {
-    setState({ status: "running", endAt: Date.now() + duration, remaining: duration });
+    const t = Date.now();
+    setNow(t);
+    setState({ status: "running", endAt: t + duration, remaining: duration });
   }, [duration, setState]);
 
   const pause = useCallback(() => {
@@ -52,9 +54,9 @@ export function useCountdown(duration: number, storageKey: string) {
   }, [setState]);
 
   const resume = useCallback(() => {
-    setState((s) =>
-      s.status === "paused" ? { status: "running", endAt: Date.now() + s.remaining, remaining: s.remaining } : s,
-    );
+    const t = Date.now();
+    setNow(t);
+    setState((s) => (s.status === "paused" ? { status: "running", endAt: t + s.remaining, remaining: s.remaining } : s));
   }, [setState]);
 
   const reset = useCallback(() => {
